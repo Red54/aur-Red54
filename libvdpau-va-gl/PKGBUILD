@@ -1,0 +1,31 @@
+# Maintainer: Behem0th <grantipak@gmail.com>
+
+pkgname=libvdpau-va-gl
+_gitname=libvdpau-va-gl
+pkgver=20130607
+pkgrel=1
+pkgdesc='VDPAU driver with OpenGL/VAAPI backend'
+arch=('i686' 'x86_64')
+url='https://github.com/i-rinat/libvdpau-va-gl'
+license=('LGPL3')
+depends=('glu' 'ffmpeg')
+makedepends=('git')
+provides=('libvdpau-va-gl')
+source=('git://github.com/i-rinat/libvdpau-va-gl.git')
+md5sums=('SKIP')
+
+pkgver() {
+  date +%Y%m%d
+}
+
+build() {
+  cd $_gitname
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd $_gitname
+  make DESTDIR="$pkgdir" install
+}
+
